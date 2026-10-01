@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_supplierinfo_catalog_prices_form" model="ir.ui.view">
+        <field name="name">product.supplierinfo.catalog.prices.form</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Datos de precio del catálogo" groups="base.group_system">
+                    <field name="catalog_purchase_list_price_available" invisible="1"/>
+                    <field name="catalog_recommended_retail_price_available" invisible="1"/>
+                    <field name="catalog_purchase_list_price" readonly="1" invisible="not catalog_purchase_list_price_available"/>
+                    <field name="catalog_purchase_discounts" readonly="1"/>
+                    <field name="catalog_recommended_retail_price" readonly="1" invisible="not catalog_recommended_retail_price_available"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

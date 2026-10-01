@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="catalog_price_review_view_search" model="ir.ui.view">
+        <field name="name">supplier.catalog.price.review.search</field>
+        <field name="model">supplier.catalog.price.review</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="supplier_name"/>
+                <field name="product_code"/>
+                <field name="product_name"/>
+                <filter name="no_purchase_price" string="Sin precio de compra" domain="[('issue', '=', 'no_purchase_price')]"/>
+                <filter name="retail_only" string="Solo PVP" domain="[('issue', '=', 'retail_only')]"/>
+                <filter name="discount_missing" string="Descuento pendiente" domain="[('issue', '=', 'discount_missing')]"/>
+                <filter name="discount_without_price" string="Descuento sin tarifa" domain="[('issue', '=', 'discount_without_price')]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_issue" string="Incidencia" context="{'group_by': 'issue'}"/>
+                    <filter name="group_supplier" string="Proveedor" context="{'group_by': 'supplier_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="catalog_price_review_view_list" model="ir.ui.view">
+        <field name="name">supplier.catalog.price.review.list</field>
+        <field name="model">supplier.catalog.price.review</field>
+        <field name="arch" type="xml">
+            <list decoration-warning="state == 'open'">
+                <field name="supplier_name"/>
+                <field name="product_code"/>
+                <field name="product_name"/>
+                <field name="issue"/>
+                <field name="purchase_list_price_available" column_invisible="1"/>
+                <field name="recommended_retail_price_available" column_invisible="1"/>
+                <field name="purchase_list_price" invisible="not purchase_list_price_available"/>
+                <field name="recommended_retail_price" invisible="not recommended_retail_price_available"/>
+                <field name="currency"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="catalog_price_review_view_form" model="ir.ui.view">
+        <field name="name">supplier.catalog.price.review.form</field>
+        <field name="model">supplier.catalog.price.review</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="open,resolved"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        El catálogo no creó una tarifa de proveedor porque falta un coste fiable. Completa el precio o vincula el artículo en Odoo y marca la incidencia como resuelta cuando lo hayas corregido. El PVP recibido se conserva como referencia y no se aplica automáticamente.
+                    </div>
+                    <group>
+                        <group string="Producto y proveedor">
+                            <field name="supplier_name" readonly="1"/>
+                            <field name="supplier_code" readonly="1"/>
+                            <field name="product_code" readonly="1"/>
+                            <field name="product_name" readonly="1"/>
+                            <field name="issue" readonly="1"/>
+                        </group>
+                        <group string="Precios recibidos">
+                            <field name="purchase_price_available" readonly="1"/>
+                            <field name="purchase_list_price_available" invisible="1"/>
+                            <field name="recommended_retail_price_available" invisible="1"/>
+                            <field name="purchase_list_price" readonly="1" invisible="not purchase_list_price_available"/>
+                            <field name="purchase_discounts_json" readonly="1"/>
+                            <field name="recommended_retail_price" readonly="1" invisible="not recommended_retail_price_available"/>
+                            <field name="currency" readonly="1"/>
+                            <field name="uom" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="source_updated_at" readonly="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="catalog_price_review_action" model="ir.actions.act_window">
+        <field name="name">Revisar precios del catálogo</field>
+        <field name="res_model">supplier.catalog.price.review</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'open')]</field>
+        <field name="search_view_id" ref="catalog_price_review_view_search"/>
+    </record>
+
+    <menuitem id="menu_catalog_price_review" name="Precios pendientes de revisar"
+              parent="menu_supplier_catalog_root" action="catalog_price_review_action" sequence="30"
+              groups="base.group_system"/>
+</odoo>
