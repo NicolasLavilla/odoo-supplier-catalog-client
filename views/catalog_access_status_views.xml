@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="catalog_access_status_view_search" model="ir.ui.view">
+        <field name="name">supplier.catalog.access.status.search</field>
+        <field name="model">supplier.catalog.access.status</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="supplier_name"/>
+                <field name="supplier_code"/>
+                <filter name="active" string="Activos" domain="[('state', '=', 'active')]"/>
+                <filter name="revoked" string="Revocados" domain="[('state', '=', 'revoked')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="catalog_access_status_view_list" model="ir.ui.view">
+        <field name="name">supplier.catalog.access.status.list</field>
+        <field name="model">supplier.catalog.access.status</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false" delete="false">
+                <field name="supplier_name"/>
+                <field name="supplier_code"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-danger="state == 'revoked'"/>
+                <field name="changed_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="catalog_access_status_action" model="ir.actions.act_window">
+        <field name="name">Estado de acceso a catálogos</field>
+        <field name="res_model">supplier.catalog.access.status</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="catalog_access_status_view_search"/>
+    </record>
+
+    <menuitem id="menu_catalog_access_status" name="Estado de proveedores"
+              parent="menu_supplier_catalog_root" action="catalog_access_status_action"
+              sequence="40" groups="base.group_system"/>
+</odoo>

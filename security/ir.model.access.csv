@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_supplier_catalog_sync_log_system,supplier.catalog.sync.log.system,model_supplier_catalog_sync_log,base.group_system,1,1,1,1
+access_supplier_catalog_price_review_system,supplier.catalog.price.review.system,model_supplier_catalog_price_review,base.group_system,1,1,1,1
+access_supplier_catalog_access_status_system,supplier.catalog.access.status.system,model_supplier_catalog_access_status,base.group_system,1,1,1,1

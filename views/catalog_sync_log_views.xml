@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="catalog_sync_log_view_list" model="ir.ui.view">
+        <field name="name">supplier.catalog.sync.log.list</field>
+        <field name="model">supplier.catalog.sync.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date" string="Started"/>
+                <field name="state"/>
+                <field name="products_received"/>
+                <field name="products_created"/>
+                <field name="products_updated"/>
+                <field name="suppliers_created"/>
+                <field name="price_review_items"/>
+                <field name="revoked_suppliers"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="catalog_sync_log_view_form" model="ir.ui.view">
+        <field name="name">supplier.catalog.sync.log.form</field>
+        <field name="model">supplier.catalog.sync.log</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="state" widget="statusbar" statusbar_visible="running,done,error"/>
+                            <field name="started_at"/>
+                            <field name="finished_at"/>
+                        </group>
+                        <group>
+                            <field name="products_received"/>
+                            <field name="products_created"/>
+                            <field name="products_updated"/>
+                            <field name="suppliers_created"/>
+                            <field name="price_review_items"/>
+                            <field name="revoked_suppliers"/>
+                        </group>
+                    </group>
+                    <field name="error_message" invisible="not error_message"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="catalog_sync_log_action" model="ir.actions.act_window">
+        <field name="name">Sync History</field>
+        <field name="res_model">supplier.catalog.sync.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="catalog_sync_now_action" model="ir.actions.server">
+        <field name="name">Sync Now</field>
+        <field name="model_id" ref="model_supplier_catalog_sync_log"/>
+        <field name="state">code</field>
+        <field name="code">action = model.run_sync(full=False)</field>
+    </record>
+
+    <menuitem id="menu_supplier_catalog_root" name="Supplier Catalog" sequence="70"
+              web_icon="supplier_catalog_client,static/description/icon.png"/>
+    <menuitem id="menu_catalog_sync_log" name="Sync History" parent="menu_supplier_catalog_root"
+              action="catalog_sync_log_action" sequence="10"/>
+    <menuitem id="menu_catalog_sync_now" name="Sync Now" parent="menu_supplier_catalog_root"
+              action="catalog_sync_now_action" sequence="20"/>
+</odoo>
