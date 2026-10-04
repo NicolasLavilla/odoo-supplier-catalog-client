@@ -9,7 +9,7 @@ queues catalog rows without a usable purchase price for human review. The Hub
 continues to enforce supplier entitlements server-side.
 """,
     "category": "Technical",
-    "author": "Ataraxial",
+    "author": "Aprexi",
     "license": "LGPL-3",
     "depends": ["base", "product", "purchase"],
     "external_dependencies": {"python": ["requests"]},
@@ -25,3 +25,4 @@ continues to enforce supplier entitlements server-side.
     "installable": True,
     "application": False,
 }
+

@@ -1,22 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="res_config_settings_view_form" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.supplier_catalog_client</field>
-        <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//form" position="inside">
-                <app data-string="Supplier Catalog" string="Supplier Catalog" name="supplier_catalog_client" groups="base.group_system">
-                    <block title="Catalog Hub Connection" name="supplier_catalog_client">
-                        <setting string="Hub URL" id="catalog_hub_url_setting">
-                            <field name="catalog_hub_url" placeholder="https://hub.example.com"/>
-                        </setting>
-                        <setting string="API Key" id="catalog_hub_api_key_setting">
-                            <field name="catalog_hub_api_key" password="True"/>
-                        </setting>
-                    </block>
-                </app>
-            </xpath>
-        </field>
-    </record>
 </odoo>

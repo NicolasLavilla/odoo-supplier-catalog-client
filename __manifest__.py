@@ -9,14 +9,13 @@ queues catalog rows without a usable purchase price for human review. The Hub
 continues to enforce supplier entitlements server-side.
 """,
     "category": "Technical",
-    "author": "Ataraxial",
+    "author": "Aprexi",
     "license": "LGPL-3",
-    "support": "soporte@ataraxial.com",
-    "depends": ["base", "product", "purchase"],
+    "support": "soporte@aprexi.com",
+    "depends": ["base", "product", "purchase", "hub_client_base"],
     "external_dependencies": {"python": ["requests"]},
     "data": [
         "security/ir.model.access.csv",
-        "views/res_config_settings_views.xml",
         "views/catalog_sync_log_views.xml",
         "views/catalog_price_review_views.xml",
         "views/product_supplierinfo_views.xml",
@@ -24,5 +23,6 @@ continues to enforce supplier entitlements server-side.
         "data/ir_cron_data.xml",
     ],
     "installable": True,
-    "application": False,
+    "application": True,
 }
+

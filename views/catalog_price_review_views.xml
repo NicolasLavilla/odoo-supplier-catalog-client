@@ -11,11 +11,9 @@
                 <filter name="no_purchase_price" string="Sin precio de compra" domain="[('issue', '=', 'no_purchase_price')]"/>
                 <filter name="retail_only" string="Solo PVP" domain="[('issue', '=', 'retail_only')]"/>
                 <filter name="discount_missing" string="Descuento pendiente" domain="[('issue', '=', 'discount_missing')]"/>
-                <filter name="discount_without_price" string="Descuento sin tarifa" domain="[('issue', '=', 'discount_without_price')]"/>
-                <group expand="0" string="Agrupar por">
-                    <filter name="group_issue" string="Incidencia" context="{'group_by': 'issue'}"/>
-                    <filter name="group_supplier" string="Proveedor" context="{'group_by': 'supplier_name'}"/>
-                </group>
+                <separator/>
+                <filter name="group_issue" string="Incidencia" context="{'group_by': 'issue'}"/>
+                <filter name="group_supplier" string="Proveedor" context="{'group_by': 'supplier_name'}"/>
             </search>
         </field>
     </record>
